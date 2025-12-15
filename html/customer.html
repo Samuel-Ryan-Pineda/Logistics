@@ -1,0 +1,354 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logistics Customers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="d-flex justify-content-between align-items-center container mx-auto mb-4 ,ao">
+    <div class="d-flex align-items-center">
+      <div class="logo-circle">
+        <span>Lo</span>
+      </div>
+      <div class="logo-text">gistics</div>
+    </div>
+    <nav class="d-flex gap-3">
+      <a href="customer.html" type="button" class="nav-btn nav-btn-primary">
+        <i class="fas fa-user"></i>
+        Customer
+      </a>
+      <a href="orderdetails.html" type="button" class="nav-btn nav-btn-secondary">
+        <i class="fas fa-shopping-cart"></i>
+        Order Details
+      </a>
+      <a href="courier.html" type="button" class="nav-btn nav-btn-secondary">
+        <i class="fas fa-truck"></i>
+        Courier
+      </a>
+    </nav>
+  </header>
+
+  <main class="main container mx-auto bg-white rounded-2 p-4 flex-grow-1">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="fw-normal" style="font-size: 1.25rem; background-color: #1e2a4718; padding: 0.4rem;">Customers</h2>
+      <button type="button" class="btn-add-customer" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+        <i class="fas fa-plus"></i>
+        Add Customer
+      </button>
+    </div>
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th scope="col" class="text-start ps-3">Name</th>
+          <th scope="col" class="text-start ps-3">Phone</th>
+          <th scope="col" class="text-start ps-3">Address</th>
+          <th scope="col" class="text-center ps-3">Action</th>
+        </tr>
+      </thead>
+      <tbody id="customerTableBody">
+        <!-- Customer data will be loaded dynamically -->
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Add Customer Modal -->
+  <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content form-container">
+        <form aria-label="Add Customer Form" id="addCustomerForm">
+          <h2 class="form-title">Add Customer</h2>
+          <div class="mb-3">
+            <label for="customerName" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" id="customerName" name="customerName" autocomplete="off" required />
+          </div>
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <div class="input-group">
+              <span class="input-group-text">+63</span>
+              <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" autocomplete="off" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required />
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" autocomplete="off"  required />
+          </div>
+          <div class="d-flex justify-content-end gap-3">
+            <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-add" onclick="submitCustomerForm()">Add Customer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Order Modal -->
+  <div class="modal fade" id="addOrderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content form-container">
+        <form aria-label="Add Order Form" id="addOrderForm">
+          <h1 class="mb-4" style="font-weight: 400; font-size: 1.5rem;">Add Order</h1>
+          <div class="customer-info"> 
+            <div class="d-flex"> <dt class="me-2">Customer:</dt> <dd id="orderCustomerName"></dd> </div>
+            <div class="d-flex"> <dt class="me-2">Phone Number:</dt> <dd id="orderCustomerPhone"></dd> </div>
+            <div class="d-flex"> <dt class="me-2">Address:</dt> <dd id="orderCustomerAddress"></dd> </div>
+          </div>
+          <div class="mb-3">
+            <label for="item" class="form-label">Item</label>
+            <input type="text" class="form-control" id="item" name="item" required />
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-sm-6">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="text" class="form-control" id="quantity" name="quantity" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required />
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="amount" class="form-label">Amount</label>
+              <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="amount" name="amount" aria-label="Amount in Philippine Peso" pattern="[0-9]+(\.[0-9]{1,2})?" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46 && this.value.indexOf('.') === -1)" oninput="if(this.value.includes('.')) {const parts = this.value.split('.'); if(parts[1].length > 2) {this.value = parts[0] + '.' + parts[1].substring(0, 2);}}" required />
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="weight" class="form-label">Weight</label>
+              <input type="text" class="form-control" id="weight" name="weight" required />
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="status" class="form-label">Status</label>
+              <input type="text" class="form-control" id="status" name="status" value="pending" readonly aria-label="Status" />
+            </div>
+          </div>
+          <div class="d-flex justify-content-end gap-3">
+            <button type="button" class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn-add" onclick="submitOrderForm()">Add Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  // Load customer data when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadCustomers();
+    
+    // Update order modal with customer information when opened
+    const addOrderModal = document.getElementById('addOrderModal');
+    addOrderModal.addEventListener('show.bs.modal', function(event) {
+      // Get the button that triggered the modal
+      const button = event.relatedTarget;
+      
+      // Extract customer info from data attributes
+      const customerName = button.getAttribute('data-customer-name');
+      const customerPhone = button.getAttribute('data-customer-phone');
+      const customerAddress = button.getAttribute('data-customer-address');
+      
+      // Update the modal's content
+      document.getElementById('orderCustomerName').textContent = customerName;
+      document.getElementById('orderCustomerPhone').textContent = customerPhone;
+      document.getElementById('orderCustomerAddress').textContent = customerAddress;
+    });
+  });
+  
+  // Function to load customers from MongoDB
+  function loadCustomers() {
+    fetch('../php/getcustomers.php')
+      .then(response => response.json())
+      .then(data => {
+        if(data.success) {
+          const customerTableBody = document.getElementById('customerTableBody');
+          customerTableBody.innerHTML = '';
+          
+          // Check if there are customers
+          if(data.customers.length === 0) {
+            customerTableBody.innerHTML = '<tr><td colspan="4" class="text-center">No customers found</td></tr>';
+            return;
+          }
+          
+          // Add each customer to the table
+          data.customers.forEach(customer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td class="text-start ps-3 fw-bold">${customer.name}</td>
+              <td class="text-start ps-3">${customer.phone}</td>
+              <td class="text-start ps-3">${customer.address}</td>
+              <td class="text-center">
+                <button type="button" class="btn-add-order" data-bs-toggle="modal" data-bs-target="#addOrderModal" 
+                  data-customer-name="${customer.name}" data-customer-phone="${customer.phone}" data-customer-address="${customer.address}">
+                  <i class="fas fa-shopping-cart"></i>
+                  Add Order
+                </button>
+              </td>
+            `;
+            customerTableBody.appendChild(row);
+          });
+        }
+      })
+      .catch(error => console.error('Error loading customers:', error));
+  }
+  
+  function submitCustomerForm() {
+    const form = document.getElementById('addCustomerForm');
+    
+    // Check form validity before submission
+    if (!form.checkValidity()) {
+      // Add the was-validated class to show validation feedback
+      form.classList.add('was-validated');
+      return; // Stop execution if form is invalid
+    }
+    
+    const formData = new FormData(form);
+    
+    fetch('../php/addcustomer.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.success) {
+        // Create and show toast notification
+        const toastHTML = `
+          <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-2">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; border-radius: 4px; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; width: 450px;">
+              <div class="toast-body d-flex align-items-center">
+                <i class="fas fa-check-circle me-2" style="color: #155724;"></i>
+                <span>Success: ${data.message}</span>
+              </div>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" style="font-size: 0.875rem; opacity: 0.8;"></button>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        // Hide modal and reset form
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addCustomerModal'));
+        modal.hide();
+        form.reset();
+        // Remove the was-validated class when resetting
+        form.classList.remove('was-validated');
+        
+        // Reload customer data to refresh the table
+        loadCustomers();
+        
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+          const toast = document.querySelector('.toast-container');
+          if (toast) toast.remove();
+        }, 5000);
+      } else {
+        // Create and show error toast notification
+        const toastHTML = `
+          <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-2">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; border-radius: 4px; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; width: 450px;">
+              <div class="toast-body d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-2" style="color: #721c24;"></i>
+                <span>Error: ${data.error}</span>
+              </div>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" style="font-size: 0.875rem; opacity: 0.8;"></button>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+          const toast = document.querySelector('.toast-container');
+          if (toast) toast.remove();
+        }, 5000);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
+  
+  function submitOrderForm() {
+    const form = document.getElementById('addOrderForm');
+    
+    // Check form validity before submission
+    if (!form.checkValidity()) {
+      // Add the was-validated class to show validation feedback
+      form.classList.add('was-validated');
+      return; // Stop execution if form is invalid
+    }
+    
+    // Get customer information from the modal
+    const customerName = document.getElementById('orderCustomerName').textContent;
+    const customerPhone = document.getElementById('orderCustomerPhone').textContent;
+    const customerAddress = document.getElementById('orderCustomerAddress').textContent;
+    
+    // Create FormData object
+    const formData = new FormData(form);
+    
+    // Add customer information to formData
+    formData.append('customerName', customerName);
+    formData.append('customerPhone', customerPhone);
+    formData.append('customerAddress', customerAddress);
+    
+    // Submit form data to addorder.php
+    fetch('../php/addorder.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.success) {
+        // Create and show toast notification
+        const toastHTML = `
+          <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-2">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; border-radius: 4px; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; width: 450px;">
+              <div class="toast-body d-flex align-items-center">
+                <i class="fas fa-check-circle me-2" style="color: #155724;"></i>
+                <span>Success: ${data.message}</span>
+              </div>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" style="font-size: 0.875rem; opacity: 0.8;"></button>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        // Hide modal and reset form
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addOrderModal'));
+        modal.hide();
+        form.reset();
+        // Remove the was-validated class when resetting
+        form.classList.remove('was-validated');
+        
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+          const toast = document.querySelector('.toast-container');
+          if (toast) toast.remove();
+        }, 5000);
+      } else {
+        // Create and show error toast notification
+        const toastHTML = `
+          <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-2">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; border-radius: 4px; padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; width: 450px;">
+              <div class="toast-body d-flex align-items-center">
+                <i class="fas fa-exclamation-circle me-2" style="color: #721c24;"></i>
+                <span>Error: ${data.error}</span>
+              </div>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" style="font-size: 0.875rem; opacity: 0.8;"></button>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+          const toast = document.querySelector('.toast-container');
+          if (toast) toast.remove();
+        }, 5000);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  }
+  </script>
+</body>
+</html>

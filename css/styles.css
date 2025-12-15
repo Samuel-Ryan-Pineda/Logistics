@@ -1,0 +1,237 @@
+/* Global Styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #152644;
+  padding: 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo Styles */
+.logo-circle {
+  background-color: #EC7966;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-circle span {
+  color: #152644;
+  font-size: 1.5rem;
+  user-select: none;
+  font-family: 'Inter', sans-serif;
+  margin-left: 0.9rem;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  user-select: none;
+  margin-left: 0rem;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Navigation Button Styles */
+.nav-btn {
+  border-radius: 9999px;
+  font-size: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-btn-primary {
+  background-color: #ffffff;
+  color: #152644;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.nav-btn-primary:hover {
+  background-color: #c9d8ff;
+  transform: translateY(-2px);
+}
+
+.nav-btn-secondary {
+  background-color: #e5e7eb;
+  color: #1e2a47;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.nav-btn-secondary:hover {
+  background-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+/* Table Styles */
+.table thead th {
+  background-color: #2c3a5d;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Inter', sans-serif;
+  font-weight: normal;
+}
+
+.table tbody td {
+  font-size: 1rem;
+  color: #1e2a47;
+  vertical-align: middle;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Button Styles */
+.btn-add-customer {
+  background-color: #4f46e5;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.375rem 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.btn-add-customer:hover {
+  background-color: #4338ca;
+  transform: translateY(-2px);
+}
+
+.btn-add-order {
+  background-color: #1e2a47;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.3rem 1rem;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.btn-add-order:hover {
+  background-color: #2c3a5d;
+  transform: translateY(-2px);
+}
+
+/* Form Styles */
+.container {
+  max-width: 75%;
+}
+
+.form-container {
+  background-color: white;
+  border-radius: 0.75rem;
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem 2.5rem;
+}
+
+.form-label {
+   margin-bottom: 0.2rem; 
+}
+
+.form-title {
+  color: #172945;
+  font-weight: 700;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  color: #172945;
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.input-group-text {
+  background-color: #e5e7eb;
+  color: #172945;
+  border: 1px solid #ced4da;
+}
+
+.form-control {
+  color: #172945;
+  font-size: 0.875rem;
+}
+
+.btn-cancel {
+  background-color: #e5e7eb;
+  color: #172945;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.375rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover,
+.btn-cancel:focus {
+  background-color: #d4d4d8;
+  color: #172945;
+  transform: translateY(-2px);
+}
+
+.btn-add {
+  background-color: #4f46e5;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.375rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-add:hover,
+.btn-add:focus {
+  background-color: #4338ca;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.customer-info {
+  background: #f7f8f9;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.customer-info dt {
+  font-weight: 600;
+}
+
+.form-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #172945;
+  border-radius: 0.375rem;
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+}
